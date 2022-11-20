@@ -32,7 +32,7 @@
   gap: 0.5rem;
   width: 100%;
   /* padding-top: 1rem ; */
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 .create-card-btn{
   width: fit-content;

@@ -1,30 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
 import Cards from './Components/Cards';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
 
 function App() {
-  const [selectedColor, setSelectedColor] = useState("")
+  const [attributes, setAttributes] = useState({})
+
+  useEffect(() => {
+    axios.get('https://demo2965432.mockable.io/highon/colors').then(res => {
+      setAttributes(res.data.data);
+    });
+  }, [])
+
+  const [name, setName] = useState("")
   const [title, setTitle] = useState("")
+  const [moreDetail, setMoreDetail] = useState({})
   const [desc, setDesc] = useState("")
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [cards, setCards] = useState([])
+  const [code, setCode] = useState("")
   const Save = (e) => {
     e.preventDefault();
-      setCards([...cards, { selectedColor, title, desc, }])
-      setIsFormOpen(false)
-      // setTitle("")
-      // setDesc("")
-      // setSelectedColor("");
-    
+
+    setCards([...cards, { moreDetail, code, name, title, desc }])
+    setIsFormOpen(false)
+    // setTitle("")
+    // setDesc("")
+    // setname("");
+
     // console.log(cards)
   }
   const Cancel = (e) => {
     e.preventDefault();
     setIsFormOpen(false)
-    // setTitle("")
-    // setDesc("")
-    // setSelectedColor("");
   }
 
   return (
@@ -32,12 +41,18 @@ function App() {
       <div className="form-cnt">
         <div className='create-card-btn btn btn-primary' onClick={(e) => { e.preventDefault(); setIsFormOpen(!isFormOpen); }}>create card</div>
         <div className={isFormOpen ? `open colors` : `colors`}>
-          <div className='color-cnt bg-success' onClick={() => setSelectedColor("green")}></div>
-          <div className='color-cnt bg-dark' onClick={() => setSelectedColor("black")}></div>
-          <div className='color-cnt bg-danger' onClick={() => setSelectedColor("red")}></div>
-          <div className='color-cnt bg-warning' onClick={() => setSelectedColor("yellow")}></div>
+          {attributes !== {} ?
+            attributes.map(item => {
+              return <div className="color-cnt" onClick={() => {
+                setCode(item.code);
+                setName(item.name);
+                setMoreDetail(item.data);
+              }} style={{ backgroundColor: `${item.code}` }}></div>
+            })
+            : <div></div>}
+
         </div>
-          <div className={isFormOpen ? `open selected-color mt-2` : `selected-color mt-2`}>{selectedColor}</div>
+        <div className={isFormOpen ? `open selected-color mt-2` : `selected-color mt-2`}>{name}</div>
         <div className={isFormOpen ? `open title-cnt` : `title-cnt`} >
           <input className='w-100 mt-2 p-1 ' onChange={(e) => setTitle(e.target.value)} type="text" placeholder='Give a title' />
         </div>
@@ -51,9 +66,9 @@ function App() {
         </div>
       </div>
 
-      {/* <Cards title='green' desc ='asdifj' selectedColor = 'yellow'/> */}
+      {/* <Cards title='green' desc ='asdifj' name = 'yellow'/> */}
       {cards.map(i => {
-        return <Cards title={i.title} desc={i.desc} selectedColor={i.selectedColor} />
+        return <Cards code={i.code} moreDetail={i.data} title={i.title} desc={i.desc} name={i.name} />
       })}
     </div>
   );
