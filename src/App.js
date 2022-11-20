@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios'
 
 function App() {
-  const [attributes, setAttributes] = useState({})
+  const [attributes, setAttributes] = useState([])
 
   useEffect(() => {
     axios.get('https://demo2965432.mockable.io/highon/colors').then(res => {
