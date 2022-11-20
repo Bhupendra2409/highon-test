@@ -101,3 +101,11 @@
   width: 100%;
   padding: 0.5rem;
 }
+.trait{
+  font-size: 0.6rem;
+}
+.moredetail-cnt{
+  /* margin-top: 0.5rem; */
+  height: 0;
+  overflow: hidden;
+}

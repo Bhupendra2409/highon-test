@@ -68,7 +68,7 @@ function App() {
 
       {/* <Cards title='green' desc ='asdifj' name = 'yellow'/> */}
       {cards.map(i => {
-        return <Cards code={i.code} moreDetail={i.data} title={i.title} desc={i.desc} name={i.name} />
+        return <Cards code={i.code} moreDetail={i.moreDetail} title={i.title} desc={i.desc} name={i.name} />
       })}
     </div>
   );
