@@ -1,4 +1,4 @@
-# HighOn fronten test
+# HighOn frontend test
 
 
 ## Available Scripts
